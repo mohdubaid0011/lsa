@@ -1,0 +1,29 @@
+Theory:-
+In Linux, the Secure Shell (SSH) is a method where you can access another computer through a secure and two-way encrypted communication system over the internet. 
+By enabling the SSH service in Linux, you can use the SSH protocol as an FTP (File Transfer Protocol) server or, you can get remote access to another Pc. 
+Enabling SSH service can connect your device to another device or server through a secure tunnel where your identity and data transmissions are totally safe and encrypted.
+If you are a network administrator, you must know how to enable and configure the SSH service in Linux.
+
+Step 1:-
+Install openssh-server package.
+$ sudo apt update
+$ sudo apt upgrade
+$ sudo apt install openssh-server
+Step 2:-
+Configure firewall to allow ssh traffic
+$ sudo ufw allow ssh
+Step 3:-
+Check if ssh service automatically started and is running.
+$ sudo systemctl status ssh
+Step 4:-
+Start the ssh service if it's not already started.
+$ sudo systemctl start ssh
+Step 5:-
+Disable ssh from automatically started during system boot if required. 
+$ sudo systemctl disable ssh
+Configure SSH server to automaticall start during system boot if required
+$ sudo systemctl enable ssh
+Configure SSH server options by editing the configuration file using your favorite editor. 
+$ sudo vi /etc/ssh/sshd_config
+Restart SSH service for any changes to take effect. 
+$ sudo systemctl restart ssh
