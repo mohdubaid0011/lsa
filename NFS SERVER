@@ -1,0 +1,38 @@
+THEORY:-
+NFS (Network File Share) is a protocol that allows you to share directories and files with other Linux clients in a network. 
+The directory to be shared is usually created on the NFS server and files added to it.
+The client systems mount the directory residing on the NFS server, which grants them access to the files created.
+NFS comes in handy when you need to share common data among client systems especially when they are running out of space.
+
+Steps:-
+Install NFS Kernel Server in Ubuntu
+$ sudo apt update
+$ sudo apt install nfs-kernel-server
+Create an NFS Export Directory
+$ sudo mkdir -p /mnt/nfs_share
+Give permissions
+$ sudo chmod 777 /mnt/nfs_share/
+Grant NFS Share Access to Client Systems
+$ sudo vim /etc/exports
+/mnt/nfs_share  192.168.43.0/24(rw,sync,no_subtree_check)
+To grant access to client
+/mnt/nfs_share  client_IP_1 (re,sync,no_subtree_check)
+Export the NFS Share Directory
+$ sudo exportfs -a
+$ sudo systemctl restart nfs-kernel-server
+Allow NFS Access through the Firewall
+$ sudo ufw allow from 192.168.43.0/24 to any 2049
+enable the firewall
+$ sudo ufw enable
+$ sudo ufw status
+Install the NFS-Common Package
+$ sudo apt install nfs-common
+Create a NFS Mount Point on Client
+$ sudo mkdir -p /mnt/nfs_clientshare
+Mount NFS Share on Client System
+$ ifconfig
+$ sudo mount 192.168.43.234:/mnt/nfs_share  /mnt/nfs_clientshare
+ Testing the NFS Share on Client System
+ $ cd /mnt/nfs_share/
+$ touch file1.txt file2.txt file3.txt
+$ ls -l /mnt/nfs_clientshare/
