@@ -1,0 +1,37 @@
+Theory:-
+A Samba file server enables file sharing across different operating systems over a network.
+It lets you access your desktop files from a laptop and share files with Windows and macOS users.
+
+Open the terminal
+Install samba with the following command:   sudo apt-get install samba smbfs
+Configure samba typing: vi /etc/samba/smb.conf
+Set your workgroup (if necesary). Go down in the file, until you see :
+
+# Change this to the workgroup/NT-domain name your Samba server will part of
+   workgroup = WORKGROUP
+Set your share folders.
+# Ubaid's share
+[MyShare]
+  comment = YOUR COMMENTS
+  path = /your-share-folder
+  read only = no
+  guest ok = yes
+start samba. type: /etc/init.d/smbd restart
+Create the share folder: sudo mkdir /your-share-folder
+Set the permissions: sudo chmod 0777 /your-share-folder
+you are all set in ubuntu
+sudo service smbd restart
+Update the firewall rules to allow Samba traffic:
+sudo ufw allow samba
+Accessing Samba Server Files from:Windows
+art button -> Run
+Type: \\<your-ip-address-to-ubuntu>\<your-share-folder>
+All set
+If you need to enable the samba ports in your firewall these are the ports:
+
+port type    port no
+udp        137
+udp        138
+tcp        139
+tcp        445
+
